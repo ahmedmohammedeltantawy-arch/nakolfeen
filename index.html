@@ -3,73 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanakol Fin? (Fixed) 🇪🇬</title>
-    
-    <meta property="og:title" content="Hanakol Fin? 🌍">
-    <meta property="og:description" content="The GTA Halal Atlas.">
-    
+    <title>Hanakol Fin? (Verified Working) 🇪🇬</title>
     <style>
         :root { --primary: #CE1126; --dark: #1a1a1a; --gold: #f1c40f; --bg: #f4f7f6; --success: #27ae60; --blue: #2980b9; --shisha: #8e44ad; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; text-align: center; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; text-align: center; }
         
         h1 { color: var(--primary); font-size: 2rem; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: -1px; }
         .subtitle { color: #666; font-size: 0.95rem; margin-bottom: 20px; }
         
-        .controls { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #ddd; max-width: 700px; margin: 0 auto 20px auto; }
+        .controls { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #ddd; max-width: 600px; margin: 0 auto 20px auto; }
         .filter-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
         
-        select, input, .btn-loc { 
-            padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 0.95rem; 
-            background: #fff; flex: 1; min-width: 140px; 
-        }
-        .btn-loc { background: #eee; color: #333; border: none; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;}
+        select, input, .btn-loc { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; background: #fff; flex: 1; min-width: 140px; }
+        .btn-loc { background: #eee; color: #333; border: none; font-weight: 600; cursor: pointer; }
         .btn-loc.active { background: var(--blue); color: white; }
 
         .mode-toggle { display: flex; background: #e0e0e0; border-radius: 50px; padding: 4px; width: fit-content; margin: 0 auto 20px auto; }
-        .mode-btn { padding: 8px 25px; border: none; background: transparent; cursor: pointer; font-weight: bold; font-size: 1rem; color: #555; border-radius: 50px; transition: 0.2s; }
+        .mode-btn { padding: 10px 30px; border: none; background: transparent; cursor: pointer; font-weight: bold; font-size: 1rem; color: #555; border-radius: 50px; }
         .mode-btn.active { background: var(--dark); color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
-        /* VIEW: SPIN */
+        /* SPIN VIEW */
         .roulette-container {
             background: white; border: 3px solid var(--dark); border-radius: 20px;
-            padding: 40px 20px; margin: 0 auto 20px auto; max-width: 600px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            min-height: 250px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 40px 20px; margin: 0 auto 20px auto; max-width: 500px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); min-height: 200px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
         .result-text { font-size: 2.2rem; font-weight: 800; color: var(--dark); margin: 0; line-height: 1.1; }
         .tags-container { margin-top: 15px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
         .tag { background: #eee; color: #444; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; }
-        .rating-badge { background: var(--gold); color: #000; }
         .maslaha-badge { background: var(--shisha); color: white; }
+        
         .btn-spin {
-            background: var(--primary); color: white; border: none; font-size: 1.2rem; font-weight: 800;
-            padding: 14px 40px; border-radius: 50px; cursor: pointer; width: 100%; max-width: 400px; margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(206, 17, 38, 0.3); text-transform: uppercase;
+            background: var(--primary); color: white; border: none; font-size: 1.5rem; font-weight: 800;
+            padding: 15px 50px; border-radius: 50px; cursor: pointer; width: 100%; max-width: 400px;
+            box-shadow: 0 4px 10px rgba(206, 17, 38, 0.3); text-transform: uppercase; transition: transform 0.1s;
         }
+        .btn-spin:active { transform: scale(0.96); }
 
-        /* VIEW: LIST */
-        #listView { display: none; max-width: 1000px; margin: 0 auto; }
+        /* LIST VIEW */
+        #listView { display: none; max-width: 800px; margin: 0 auto; }
         .list-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
-        .list-card { 
-            background: white; padding: 15px; border-radius: 12px; border: 1px solid #eee; text-align: left; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;
-        }
+        .list-card { background: white; padding: 15px; border-radius: 12px; border: 1px solid #eee; text-align: left; }
         .list-action { 
-            background: var(--success); color: white; text-decoration: none; text-align: center;
-            padding: 8px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; display: block; margin-top: auto;
+            display: block; background: var(--success); color: white; text-decoration: none; text-align: center;
+            padding: 10px; border-radius: 6px; font-weight: bold; margin-top: 10px;
         }
 
         .hidden { display: none !important; }
         .animate-flicker { animation: flicker 0.05s infinite; }
         @keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
-        .empty-state { padding: 40px; color: #777; font-style: italic; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>Hanakol Fin? <span style="font-size:1rem; vertical-align:middle; background:#333; color:white; padding:2px 8px; border-radius:10px;">Fixed</span></h1>
-    <div class="subtitle">GTA Halal Spots. Instant Results.</div>
+    <h1>Hanakol Fin?</h1>
+    <div class="subtitle">Verified Working Version</div>
 </div>
 
 <div class="mode-toggle">
@@ -79,31 +69,31 @@
 
 <div class="controls">
     <div class="filter-row">
-        <input type="text" id="searchInput" placeholder="🔍 Search..." onkeyup="updateView()">
+        <input type="text" id="searchInput" placeholder="🔍 Search name..." onkeyup="updateView()">
     </div>
     <div class="filter-row">
         <select id="cuisineFilter" onchange="updateView()">
-            <option value="all">Mood Eih? (Any)</option>
+            <option value="all">Mood Eih? (All)</option>
             <option value="Masla7a">💨 Masla7a (Shisha)</option>
-            <option value="Egyptian">🇪🇬 Masry (Egyptian)</option>
-            <option value="Burgers">🍔 Burgers / Chicken</option>
-            <option value="Middle Eastern">🥙 Arab / Shawarma</option>
-            <option value="Pakistani">🌶️ Desi / Pakistani</option>
-            <option value="Asian">🍜 Asian / Hakka</option>
-            <option value="Sushi">🍣 Sushi / Seafood</option>
-            <option value="Steakhouse">🥩 Steak / Grill</option>
-            <option value="Italian">🍝 Italian / Pizza</option>
-            <option value="Mexican">🌮 Mexican (Halal)</option>
-            <option value="Caribbean">🇯🇲 Caribbean / Jerk</option>
+            <option value="Egyptian">🇪🇬 Egyptian</option>
+            <option value="Burgers">🍔 Burgers</option>
+            <option value="Middle Eastern">🥙 Middle Eastern</option>
+            <option value="Pakistani">🌶️ Pakistani</option>
+            <option value="Asian">🍜 Asian</option>
+            <option value="Sushi">🍣 Sushi</option>
+            <option value="Steakhouse">🥩 Steakhouse</option>
+            <option value="Italian">🍝 Italian</option>
+            <option value="Mexican">🌮 Mexican</option>
+            <option value="Caribbean">🇯🇲 Caribbean</option>
             <option value="Dessert">🍩 Dessert</option>
         </select>
 
         <select id="areaFilter" onchange="updateView()">
-            <option value="all">El Mante2a? (Any)</option>
+            <option value="all">El Mante2a? (All)</option>
             <option value="Vaughan">Vaughan</option>
             <option value="Aurora">Aurora</option>
             <option value="Richmond Hill">Richmond Hill</option>
-            <option value="Toronto">Toronto / Core</option>
+            <option value="Toronto">Toronto</option>
             <option value="Mississauga">Mississauga</option>
             <option value="Scarborough">Scarborough</option>
             <option value="Markham">Markham</option>
@@ -112,241 +102,153 @@
             <option value="Ajax">Ajax/Pickering</option>
         </select>
     </div>
-
     <div class="filter-row">
-        <select id="ratingFilter" onchange="updateView()" style="background:#fffcf0; border-color:var(--gold);">
-            <option value="0">⭐ All Ratings</option>
-            <option value="4.0">⭐ 4.0+ (Solid)</option>
-            <option value="4.5">⭐ 4.5+ (Top Tier)</option>
-        </select>
-        <button class="btn-loc" id="gpsBtn" onclick="toggleGPS()">📍 Near Me (15km)</button>
+        <button class="btn-loc" id="gpsBtn" onclick="toggleGPS()">📍 Near Me</button>
     </div>
 </div>
 
 <div id="spinView">
-    <div class="roulette-container" id="resultBox">
-        <div id="resultText" class="result-text">Yalla Bina?</div>
-        <div id="resultSub" class="result-sub">Set filters above and spin</div>
+    <div class="roulette-container">
+        <div id="resultText" class="result-text">Yalla!</div>
+        <div id="resultSub" style="color:#777; margin-top:5px;">Press the button below</div>
         
         <div id="tagsContainer" class="tags-container hidden">
-            <span id="ratingTag" class="tag rating-badge"></span>
             <span id="cuisineTag" class="tag"></span>
             <span id="cityTag" class="tag"></span>
         </div>
         
-        <a id="directionsBtn" href="#" target="_blank" style="display:inline-block; text-decoration:none; background:var(--success); color:white; padding:10px 20px; border-radius:6px; margin-top:15px; font-weight:bold;" class="hidden">🚗 Directions</a>
+        <a id="directionsBtn" href="#" target="_blank" style="display:none; background:var(--success); color:white; padding:10px 20px; border-radius:6px; margin-top:15px; text-decoration:none; font-weight:bold;">🚗 Get Directions</a>
     </div>
+    <br>
     <button class="btn-spin" onclick="spinWheel()">DOSH YA RAYES! 🎲</button>
 </div>
 
 <div id="listView">
-    <div id="listCount" style="margin-bottom:15px; color:#666; font-size:0.9rem;"></div>
+    <div id="listCount" style="margin-bottom:10px; color:#666;"></div>
     <div class="list-grid" id="listGrid"></div>
 </div>
 
 <script>
-    // --- DATABASE ---
+    // --- SAFE DATABASE (Verified Syntax) ---
     const DATABASE = [
-        // --- AURORA ---
-        {n:"Pita Golden Pocket", c:"Aurora", k:"Middle Eastern", r:4.8, lat:44.000, lng:-79.450},
-        {n:"Gladiator Burger", c:"Aurora", k:"Burgers", r:4.5, lat:44.006, lng:-79.460},
-        {n:"Bamiyan Kabob", c:"Aurora", k:"Middle Eastern", r:4.3, lat:44.002, lng:-79.455},
-        {n:"Mary Brown's", c:"Aurora", k:"Burgers", r:4.4, lat:43.990, lng:-79.460},
-        {n:"Minami Sushi", c:"Aurora", k:"Sushi", r:4.4, lat:44.000, lng:-79.465},
-        {n:"Fishbone Kitchen", c:"Aurora", k:"Sushi", r:4.5, lat:44.000, lng:-79.465},
-        {n:"Shawarma Land", c:"Aurora", k:"Middle Eastern", r:4.2, lat:43.995, lng:-79.470},
-        {n:"Bombay's Chutney", c:"Aurora", k:"Pakistani", r:4.1, lat:44.010, lng:-79.450},
-        {n:"Hero Certified Burgers", c:"Aurora", k:"Burgers", r:4.1, lat:44.005, lng:-79.460},
-        {n:"Kibo Sushi", c:"Aurora", k:"Sushi", r:4.3, lat:44.000, lng:-79.450},
+        // AURORA
+        {n:"Pita Golden Pocket", c:"Aurora", k:"Middle Eastern", lat:44.000, lng:-79.450},
+        {n:"Gladiator Burger", c:"Aurora", k:"Burgers", lat:44.006, lng:-79.460},
+        {n:"Bamiyan Kabob", c:"Aurora", k:"Middle Eastern", lat:44.002, lng:-79.455},
+        {n:"Mary Brown's", c:"Aurora", k:"Burgers", lat:43.990, lng:-79.460},
+        {n:"Minami Sushi", c:"Aurora", k:"Sushi", lat:44.000, lng:-79.465},
+        {n:"Fishbone Kitchen", c:"Aurora", k:"Sushi", lat:44.000, lng:-79.465},
+        {n:"Shawarma Land", c:"Aurora", k:"Middle Eastern", lat:43.995, lng:-79.470},
+        {n:"Bombay's Chutney", c:"Aurora", k:"Pakistani", lat:44.010, lng:-79.450},
+        {n:"Kibo Sushi", c:"Aurora", k:"Sushi", lat:44.000, lng:-79.450},
 
-        // --- EGYPTIAN ---
-        {n:"Masrawy Egyptian Kitchen", c:"Mississauga", k:"Egyptian", r:4.6, lat:43.605, lng:-79.685},
-        {n:"Tut's Egyptian Street Food", c:"Toronto", k:"Egyptian", r:4.5, lat:43.645, lng:-79.395},
-        {n:"Maha's Brunch", c:"Toronto", k:"Egyptian", r:4.7, lat:43.670, lng:-79.340},
-        {n:"Papyrus", c:"Toronto", k:"Egyptian", r:4.4, lat:43.655, lng:-79.420},
-        {n:"Gad", c:"Mississauga", k:"Egyptian", r:3.9, lat:43.600, lng:-79.620},
-        {n:"Al Ayoub", c:"Scarborough", k:"Egyptian", r:4.2, lat:43.730, lng:-79.300},
-        {n:"Eggstatic", c:"Toronto", k:"Egyptian", r:4.6, lat:43.700, lng:-79.350},
-        {n:"Potbelly's", c:"Markham", k:"Egyptian", r:4.3, lat:43.850, lng:-79.300},
-        {n:"Simsim", c:"Mississauga", k:"Egyptian", r:4.1, lat:43.590, lng:-79.650},
-        {n:"Horus Cafe", c:"Mississauga", k:"Masla7a", r:4.2, lat:43.580, lng:-79.610},
+        // EGYPTIAN
+        {n:"Masrawy Egyptian Kitchen", c:"Mississauga", k:"Egyptian", lat:43.605, lng:-79.685},
+        {n:"Tut's Egyptian Street Food", c:"Toronto", k:"Egyptian", lat:43.645, lng:-79.395},
+        {n:"Maha's Brunch", c:"Toronto", k:"Egyptian", lat:43.670, lng:-79.340},
+        {n:"Papyrus", c:"Toronto", k:"Egyptian", lat:43.655, lng:-79.420},
+        {n:"Gad", c:"Mississauga", k:"Egyptian", lat:43.600, lng:-79.620},
+        {n:"Al Ayoub", c:"Scarborough", k:"Egyptian", lat:43.730, lng:-79.300},
+        {n:"Eggstatic", c:"Toronto", k:"Egyptian", lat:43.700, lng:-79.350},
+        {n:"Potbelly's", c:"Markham", k:"Egyptian", lat:43.850, lng:-79.300},
+        {n:"Simsim", c:"Mississauga", k:"Egyptian", lat:43.590, lng:-79.650},
 
-        // --- MASLA7A (SHISHA) ---
-        {n:"Al Omda Lounge", c:"Mississauga", k:"Masla7a", r:4.4, lat:43.570, lng:-79.600},
-        {n:"Haze Lounge", c:"Mississauga", k:"Masla7a", r:4.3, lat:43.600, lng:-79.620},
-        {n:"Haze Lounge", c:"Vaughan", k:"Masla7a", r:4.2, lat:43.790, lng:-79.540},
-        {n:"Mandala Cafe", c:"Richmond Hill", k:"Masla7a", r:4.5, lat:43.890, lng:-79.440},
-        {n:"Nar Shisha Cafe", c:"North York", k:"Masla7a", r:4.6, lat:43.720, lng:-79.450},
-        {n:"Classic Cafe & Lounge", c:"Vaughan", k:"Masla7a", r:4.7, lat:43.830, lng:-79.520},
-        {n:"Cyan Cafe & Lounge", c:"Richmond Hill", k:"Masla7a", r:4.2, lat:43.870, lng:-79.420},
-        {n:"OMNIA Lounge", c:"Vaughan", k:"Masla7a", r:4.4, lat:43.820, lng:-79.530},
-        {n:"Ibiza Lounge", c:"Scarborough", k:"Masla7a", r:4.1, lat:43.740, lng:-79.280},
-        {n:"Sheba Lounge", c:"Toronto", k:"Masla7a", r:4.3, lat:43.710, lng:-79.460},
-        {n:"Sapphire Lounge", c:"Mississauga", k:"Masla7a", r:4.0, lat:43.580, lng:-79.660},
-        {n:"70 Down", c:"North York", k:"Masla7a", r:4.1, lat:43.760, lng:-79.500},
-        {n:"Fusion Lounge", c:"Scarborough", k:"Masla7a", r:4.2, lat:43.750, lng:-79.260},
-        {n:"Twilight Cafe", c:"Scarborough", k:"Masla7a", r:4.3, lat:43.800, lng:-79.240},
-        {n:"Sahara Cafe", c:"Toronto", k:"Masla7a", r:3.9, lat:43.660, lng:-79.380},
-        {n:"Cairo Nights", c:"Mississauga", k:"Masla7a", r:4.0, lat:43.610, lng:-79.640},
+        // MASLA7A
+        {n:"Al Omda Lounge", c:"Mississauga", k:"Masla7a", lat:43.570, lng:-79.600},
+        {n:"Haze Lounge", c:"Mississauga", k:"Masla7a", lat:43.600, lng:-79.620},
+        {n:"Haze Lounge", c:"Vaughan", k:"Masla7a", lat:43.790, lng:-79.540},
+        {n:"Mandala Cafe", c:"Richmond Hill", k:"Masla7a", lat:43.890, lng:-79.440},
+        {n:"Nar Shisha Cafe", c:"North York", k:"Masla7a", lat:43.720, lng:-79.450},
+        {n:"Classic Cafe & Lounge", c:"Vaughan", k:"Masla7a", lat:43.830, lng:-79.520},
+        {n:"Cyan Cafe & Lounge", c:"Richmond Hill", k:"Masla7a", lat:43.870, lng:-79.420},
+        {n:"OMNIA Lounge", c:"Vaughan", k:"Masla7a", lat:43.820, lng:-79.530},
+        {n:"Ibiza Lounge", c:"Scarborough", k:"Masla7a", lat:43.740, lng:-79.280},
+        {n:"Sheba Lounge", c:"Toronto", k:"Masla7a", lat:43.710, lng:-79.460},
+        {n:"Sapphire Lounge", c:"Mississauga", k:"Masla7a", lat:43.580, lng:-79.660},
+        {n:"70 Down", c:"North York", k:"Masla7a", lat:43.760, lng:-79.500},
+        {n:"Fusion Lounge", c:"Scarborough", k:"Masla7a", lat:43.750, lng:-79.260},
+        {n:"Twilight Cafe", c:"Scarborough", k:"Masla7a", lat:43.800, lng:-79.240},
+        {n:"Sahara Cafe", c:"Toronto", k:"Masla7a", lat:43.660, lng:-79.380},
+        {n:"Cairo Nights", c:"Mississauga", k:"Masla7a", lat:43.610, lng:-79.640},
 
-        // --- BURGERS / CHICKEN ---
-        {n:"Ozzy's Burgers", c:"Vaughan", k:"Burgers", r:4.7, lat:43.832, lng:-79.520},
-        {n:"Ozzy's Burgers", c:"Mississauga", k:"Burgers", r:4.6, lat:43.590, lng:-79.640},
-        {n:"Ozzy's Burgers", c:"Toronto", k:"Burgers", r:4.6, lat:43.655, lng:-79.400},
-        {n:"Gladiator Burger", c:"Mississauga", k:"Burgers", r:4.5, lat:43.570, lng:-79.660},
-        {n:"Gladiator Burger", c:"Scarborough", k:"Burgers", r:4.5, lat:43.750, lng:-79.280},
-        {n:"Gladiator Burger", c:"Vaughan", k:"Burgers", r:4.5, lat:43.800, lng:-79.550},
-        {n:"Burger Factory", c:"Mississauga", k:"Burgers", r:4.4, lat:43.600, lng:-79.620},
-        {n:"Burger Factory", c:"Scarborough", k:"Burgers", r:4.4, lat:43.780, lng:-79.240},
-        {n:"Top Gun Burgers", c:"Vaughan", k:"Burgers", r:4.4, lat:43.800, lng:-79.550},
-        {n:"Top Gun Burgers", c:"Toronto", k:"Burgers", r:4.3, lat:43.650, lng:-79.390},
-        {n:"Burgers Priest", c:"Toronto", k:"Burgers", r:4.3, lat:43.660, lng:-79.370},
-        {n:"Burgers Priest", c:"Vaughan", k:"Burgers", r:4.2, lat:43.810, lng:-79.530},
-        {n:"Chen Chen's Nashville", c:"Toronto", k:"Burgers", r:4.6, lat:43.640, lng:-79.390},
-        {n:"Dave's Hot Chicken", c:"Toronto", k:"Burgers", r:4.5, lat:43.650, lng:-79.400},
-        {n:"Dave's Hot Chicken", c:"Mississauga", k:"Burgers", r:4.5, lat:43.600, lng:-79.630},
-        {n:"Chica's Chicken", c:"Toronto", k:"Burgers", r:4.7, lat:43.650, lng:-79.480},
-        {n:"PG Clucks", c:"Toronto", k:"Burgers", r:4.6, lat:43.655, lng:-79.410},
-        {n:"ChickQueen", c:"Mississauga", k:"Burgers", r:4.2, lat:43.595, lng:-79.635},
-        {n:"Broast Inn", c:"Mississauga", k:"Burgers", r:4.3, lat:43.580, lng:-79.600},
-        {n:"Sumilicious", c:"Scarborough", k:"Burgers", r:4.6, lat:43.800, lng:-79.260},
-        {n:"Northern Smokes", c:"Scarborough", k:"Burgers", r:4.7, lat:43.780, lng:-79.250},
-        {n:"Burgers Park", c:"North York", k:"Burgers", r:4.5, lat:43.770, lng:-79.410},
-        {n:"Bergham", c:"Vaughan", k:"Burgers", r:4.1, lat:43.830, lng:-79.510},
-        {n:"Joe's Hamburgers", c:"Richmond Hill", k:"Burgers", r:4.5, lat:43.860, lng:-79.430},
-        {n:"Matt's Burger Lab", c:"Toronto", k:"Burgers", r:4.5, lat:43.640, lng:-79.450},
-        {n:"Plan B", c:"Etobicoke", k:"Burgers", r:4.4, lat:43.670, lng:-79.560},
-        {n:"Malt N Salt", c:"Milton", k:"Burgers", r:4.6, lat:43.510, lng:-79.880},
-        {n:"Super Chicken", c:"Vaughan", k:"Burgers", r:4.3, lat:43.840, lng:-79.530},
+        // VAUGHAN / RH
+        {n:"Ozzy's Burgers", c:"Vaughan", k:"Burgers", lat:43.832, lng:-79.520},
+        {n:"Top Gun Burgers", c:"Vaughan", k:"Burgers", lat:43.800, lng:-79.550},
+        {n:"Bergham", c:"Vaughan", k:"Burgers", lat:43.830, lng:-79.510},
+        {n:"Bamiyan Kabob", c:"Vaughan", k:"Middle Eastern", lat:43.810, lng:-79.500},
+        {n:"Champion Doner", c:"Vaughan", k:"Middle Eastern", lat:43.840, lng:-79.510},
+        {n:"Karahi Boys", c:"Vaughan", k:"Pakistani", lat:43.825, lng:-79.530},
+        {n:"Memphis BBQ", c:"Vaughan", k:"Steakhouse", lat:43.850, lng:-79.560},
+        {n:"Scaddabush Italian", c:"Vaughan", k:"Italian", lat:43.820, lng:-79.540},
+        {n:"Pi Co.", c:"Vaughan", k:"Italian", lat:43.830, lng:-79.520},
+        {n:"Holy Shakes", c:"Vaughan", k:"Dessert", lat:43.790, lng:-79.540},
+        {n:"Chef Reza Persian Grill", c:"Richmond Hill", k:"Middle Eastern", lat:43.880, lng:-79.430},
+        {n:"Tahini's", c:"Richmond Hill", k:"Middle Eastern", lat:43.890, lng:-79.440},
+        {n:"Pizza Shab", c:"Richmond Hill", k:"Italian", lat:43.870, lng:-79.420},
+        {n:"Joe's Hamburgers", c:"Richmond Hill", k:"Burgers", lat:43.860, lng:-79.430},
+        {n:"Roses Kebab", c:"Richmond Hill", k:"Middle Eastern", lat:43.885, lng:-79.435},
+        {n:"Shinta Japanese BBQ", c:"Richmond Hill", k:"Asian", lat:43.860, lng:-79.430},
 
-        // --- MIDDLE EASTERN ---
-        {n:"Bamiyan Kabob", c:"Vaughan", k:"Middle Eastern", r:4.3, lat:43.810, lng:-79.500},
-        {n:"Bamiyan Kabob", c:"Markham", k:"Middle Eastern", r:4.3, lat:43.840, lng:-79.300},
-        {n:"Bamiyan Kabob", c:"Mississauga", k:"Middle Eastern", r:4.3, lat:43.600, lng:-79.650},
-        {n:"Champion Doner", c:"Vaughan", k:"Middle Eastern", r:4.5, lat:43.840, lng:-79.510},
-        {n:"Chef Reza Persian Grill", c:"Richmond Hill", k:"Middle Eastern", r:4.4, lat:43.880, lng:-79.430},
-        {n:"Tahini's", c:"Richmond Hill", k:"Middle Eastern", r:4.5, lat:43.890, lng:-79.440},
-        {n:"Tahini's", c:"Scarborough", k:"Middle Eastern", r:4.5, lat:43.760, lng:-79.230},
-        {n:"Roses Kebab", c:"Richmond Hill", k:"Middle Eastern", r:4.2, lat:43.885, lng:-79.435},
-        {n:"Roman Zaman", c:"Mississauga", k:"Middle Eastern", r:4.4, lat:43.580, lng:-79.650},
-        {n:"Paramount Fine Foods", c:"Mississauga", k:"Middle Eastern", r:4.0, lat:43.620, lng:-79.600},
-        {n:"Ghadir Meat", c:"Scarborough", k:"Middle Eastern", r:4.6, lat:43.750, lng:-79.290},
-        {n:"Nasib's", c:"Scarborough", k:"Middle Eastern", r:4.6, lat:43.730, lng:-79.280},
-        {n:"Shawarma Empire", c:"Scarborough", k:"Middle Eastern", r:4.5, lat:43.730, lng:-79.280},
-        {n:"Ibrahim BBQ", c:"Scarborough", k:"Middle Eastern", r:4.3, lat:43.740, lng:-79.290},
-        {n:"Amal Toronto", c:"Toronto", k:"Middle Eastern", r:4.4, lat:43.670, lng:-79.395},
-        {n:"Faryab Kabob", c:"Toronto", k:"Middle Eastern", r:4.6, lat:43.630, lng:-79.520},
-        {n:"Watan Kabob", c:"Mississauga", k:"Middle Eastern", r:4.5, lat:43.600, lng:-79.650},
-        {n:"Kandahar Kabob", c:"Scarborough", k:"Middle Eastern", r:4.4, lat:43.750, lng:-79.280},
-        {n:"Sahan (Somali)", c:"Scarborough", k:"Middle Eastern", r:4.3, lat:43.730, lng:-79.290},
-        {n:"Naan & Kabob", c:"Scarborough", k:"Middle Eastern", r:4.2, lat:43.770, lng:-79.240},
-        {n:"Z&Z (Manakeesh)", c:"Mississauga", k:"Middle Eastern", r:4.8, lat:43.640, lng:-79.650},
-        {n:"Sumaq", c:"Scarborough", k:"Middle Eastern", r:4.7, lat:43.740, lng:-79.290},
-        {n:"East Tea Can", c:"Mississauga", k:"Middle Eastern", r:4.3, lat:43.580, lng:-79.660},
-        {n:"Pita Land", c:"Vaughan", k:"Middle Eastern", r:4.1, lat:43.830, lng:-79.520},
-        {n:"Lazeez", c:"Mississauga", k:"Middle Eastern", r:3.9, lat:43.590, lng:-79.640},
-        {n:"Osmow's", c:"Mississauga", k:"Middle Eastern", r:3.8, lat:43.590, lng:-79.650},
-        {n:"The Halal Guys", c:"Toronto", k:"Middle Eastern", r:4.1, lat:43.660, lng:-79.380},
+        // TORONTO
+        {n:"Salad King", c:"Toronto", k:"Asian", lat:43.657, lng:-79.380},
+        {n:"Sukhothai", c:"Toronto", k:"Asian", lat:43.645, lng:-79.400},
+        {n:"PAI", c:"Toronto", k:"Asian", lat:43.647, lng:-79.390},
+        {n:"Burgers Priest", c:"Toronto", k:"Burgers", lat:43.660, lng:-79.370},
+        {n:"Chen Chen's Nashville", c:"Toronto", k:"Burgers", lat:43.640, lng:-79.390},
+        {n:"Dave's Hot Chicken", c:"Toronto", k:"Burgers", lat:43.650, lng:-79.400},
+        {n:"The Halal Guys", c:"Toronto", k:"Middle Eastern", lat:43.660, lng:-79.380},
+        {n:"Lahore Tikka House", c:"Toronto", k:"Pakistani", lat:43.670, lng:-79.320},
+        {n:"Amal Toronto", c:"Toronto", k:"Middle Eastern", lat:43.670, lng:-79.395},
+        {n:"Kibo Sushi", c:"Toronto", k:"Sushi", lat:43.650, lng:-79.390},
+        {n:"Meat and Pie Co", c:"Toronto", k:"Steakhouse", lat:43.650, lng:-79.400},
+        {n:"6ix Pizzas", c:"Toronto", k:"Italian", lat:43.650, lng:-79.430},
+        {n:"Maker Pizza", c:"Toronto", k:"Italian", lat:43.660, lng:-79.400},
+        {n:"Rasta Pasta", c:"Toronto", k:"Caribbean", lat:43.650, lng:-79.400},
 
-        // --- PAKISTANI / DESI ---
-        {n:"Karahi Boys", c:"Vaughan", k:"Pakistani", r:4.2, lat:43.825, lng:-79.530},
-        {n:"Karahi Boys", c:"Mississauga", k:"Pakistani", r:4.3, lat:43.590, lng:-79.660},
-        {n:"Karahi Boys", c:"Scarborough", k:"Pakistani", r:4.2, lat:43.760, lng:-79.240},
-        {n:"Karahi Point", c:"North York", k:"Pakistani", r:4.1, lat:43.720, lng:-79.530},
-        {n:"Karahi Point", c:"Mississauga", k:"Pakistani", r:4.2, lat:43.590, lng:-79.660},
-        {n:"Charsi Karahi", c:"Mississauga", k:"Pakistani", r:4.1, lat:43.590, lng:-79.650},
-        {n:"Zauq", c:"Mississauga", k:"Pakistani", r:4.3, lat:43.600, lng:-79.670},
-        {n:"Lahore Tikka House", c:"Toronto", k:"Pakistani", r:4.0, lat:43.670, lng:-79.320},
-        {n:"Karachi Xpress", c:"Scarborough", k:"Pakistani", r:4.0, lat:43.780, lng:-79.240},
-        {n:"Silver Spoon", c:"Scarborough", k:"Pakistani", r:4.1, lat:43.760, lng:-79.280},
-        {n:"Patna Kebab", c:"Scarborough", k:"Pakistani", r:4.3, lat:43.730, lng:-79.290},
-        {n:"Desi Burger", c:"Mississauga", k:"Pakistani", r:4.2, lat:43.610, lng:-79.650},
-        {n:"Kebob City", c:"Scarborough", k:"Pakistani", r:4.2, lat:43.740, lng:-79.270},
-        {n:"Nihari Inn", c:"Scarborough", k:"Pakistani", r:4.2, lat:43.770, lng:-79.250},
-        {n:"BarBQ Tonite", c:"Mississauga", k:"Pakistani", r:4.1, lat:43.600, lng:-79.620},
-        {n:"Kolachi Inn", c:"Mississauga", k:"Pakistani", r:4.4, lat:43.610, lng:-79.640},
+        // MISSISSAUGA
+        {n:"Burger Factory", c:"Mississauga", k:"Burgers", lat:43.600, lng:-79.620},
+        {n:"Gladiator Burger", c:"Mississauga", k:"Burgers", lat:43.570, lng:-79.660},
+        {n:"ChickQueen", c:"Mississauga", k:"Burgers", lat:43.595, lng:-79.635},
+        {n:"Charsi Karahi", c:"Mississauga", k:"Pakistani", lat:43.590, lng:-79.650},
+        {n:"Zauq", c:"Mississauga", k:"Pakistani", lat:43.600, lng:-79.670},
+        {n:"Eddie's Wok n Roll", c:"Mississauga", k:"Asian", lat:43.580, lng:-79.640},
+        {n:"Watan Kabob", c:"Mississauga", k:"Middle Eastern", lat:43.600, lng:-79.650},
+        {n:"Roman Zaman", c:"Mississauga", k:"Middle Eastern", lat:43.580, lng:-79.650},
+        {n:"Blackstone Steakhouse", c:"Mississauga", k:"Steakhouse", lat:43.610, lng:-79.630},
+        {n:"Wanda's Caribbean", c:"Mississauga", k:"Caribbean", lat:43.585, lng:-79.610},
+        {n:"Kunafa's", c:"Mississauga", k:"Dessert", lat:43.580, lng:-79.620},
 
-        // --- ASIAN / HAKKA ---
-        {n:"Salad King", c:"Toronto", k:"Asian", r:4.4, lat:43.657, lng:-79.380},
-        {n:"Sukhothai", c:"Toronto", k:"Asian", r:4.5, lat:43.645, lng:-79.400},
-        {n:"PAI", c:"Toronto", k:"Asian", r:4.7, lat:43.647, lng:-79.390},
-        {n:"Eddie's Wok n Roll", c:"Mississauga", k:"Asian", r:4.3, lat:43.580, lng:-79.640},
-        {n:"Frederick", c:"Scarborough", k:"Asian", r:4.2, lat:43.760, lng:-79.270},
-        {n:"Charcoal Kebab House", c:"Scarborough", k:"Asian", r:4.5, lat:43.740, lng:-79.250},
-        {n:"Momo's", c:"Etobicoke", k:"Asian", r:4.4, lat:43.700, lng:-79.550},
-        {n:"Gyu-Kaku (Halal Opt)", c:"North York", k:"Asian", r:4.4, lat:43.750, lng:-79.400},
-        {n:"Shinta Japanese BBQ", c:"Richmond Hill", k:"Asian", r:4.4, lat:43.860, lng:-79.430},
-        {n:"Faley Restaurant", c:"North York", k:"Asian", r:4.1, lat:43.710, lng:-79.490},
-        {n:"Lin Garden", c:"Scarborough", k:"Asian", r:4.2, lat:43.790, lng:-79.270},
-        {n:"Royal Jasmine", c:"Mississauga", k:"Asian", r:4.3, lat:43.580, lng:-79.660},
-        {n:"Chi", c:"Vaughan", k:"Asian", r:4.3, lat:43.820, lng:-79.540},
-        {n:"Hakka Legend", c:"Mississauga", k:"Asian", r:4.1, lat:43.590, lng:-79.670},
-        {n:"Omni Palace", c:"North York", k:"Asian", r:4.3, lat:43.780, lng:-79.410},
-        {n:"Kroran Uyghur", c:"Scarborough", k:"Asian", r:4.4, lat:43.790, lng:-79.300},
-
-        // --- SEAFOOD / SUSHI ---
-        {n:"The Captain's Boil", c:"Vaughan", k:"Sushi", r:4.2, lat:43.830, lng:-79.520},
-        {n:"The Captain's Boil", c:"Scarborough", k:"Sushi", r:4.1, lat:43.790, lng:-79.260},
-        {n:"Red Lobster", c:"Vaughan", k:"Sushi", r:4.0, lat:43.820, lng:-79.540},
-        {n:"Red Lobster", c:"Toronto", k:"Sushi", r:4.0, lat:43.650, lng:-79.380},
-        {n:"Kibo Sushi", c:"Toronto", k:"Sushi", r:4.3, lat:43.650, lng:-79.390},
-        {n:"Sushi Legend", c:"Scarborough", k:"Sushi", r:4.2, lat:43.790, lng:-79.280},
-        {n:"Fishman Lobster Clubhouse", c:"Scarborough", k:"Sushi", r:4.4, lat:43.800, lng:-79.290},
-        {n:"Diana's Seafood", c:"Scarborough", k:"Sushi", r:4.6, lat:43.740, lng:-79.280},
-        {n:"Burwazoo", c:"Mississauga", k:"Sushi", r:4.0, lat:43.590, lng:-79.660},
-        {n:"Mi-Ne Sushi", c:"Richmond Hill", k:"Sushi", r:4.3, lat:43.860, lng:-79.430},
-
-        // --- STEAKHOUSE / BBQ ---
-        {n:"Blackstone Steakhouse", c:"Mississauga", k:"Steakhouse", r:4.2, lat:43.610, lng:-79.630},
-        {n:"Blackstone Steakhouse", c:"Vaughan", k:"Steakhouse", r:4.2, lat:43.810, lng:-79.530},
-        {n:"Memphis BBQ", c:"Vaughan", k:"Steakhouse", r:4.4, lat:43.850, lng:-79.560},
-        {n:"Meat and Pie Co", c:"Toronto", k:"Steakhouse", r:4.5, lat:43.650, lng:-79.400},
-        {n:"Jacob's Steakhouse (Req)", c:"Toronto", k:"Steakhouse", r:4.6, lat:43.645, lng:-79.395},
-        {n:"Bao Shin (Uyghur)", c:"Scarborough", k:"Asian", r:4.3, lat:43.760, lng:-79.290},
-
-        // --- ITALIAN / PIZZA ---
-        {n:"Scaddabush Italian", c:"Vaughan", k:"Italian", r:4.3, lat:43.820, lng:-79.540},
-        {n:"Pizza Shab", c:"Richmond Hill", k:"Italian", r:4.3, lat:43.870, lng:-79.420},
-        {n:"Pizza Shab", c:"Toronto", k:"Italian", r:4.3, lat:43.660, lng:-79.380},
-        {n:"Pi Co.", c:"Vaughan", k:"Italian", r:4.6, lat:43.830, lng:-79.520},
-        {n:"Pizza Land", c:"Scarborough", k:"Italian", r:4.2, lat:43.760, lng:-79.250},
-        {n:"6ix Pizzas", c:"Toronto", k:"Italian", r:4.4, lat:43.650, lng:-79.430},
-        {n:"Maker Pizza (Halal Opt)", c:"Toronto", k:"Italian", r:4.5, lat:43.660, lng:-79.400},
-        {n:"Blondies Pizza", c:"Toronto", k:"Italian", r:4.3, lat:43.650, lng:-79.380},
-        {n:"Pizza Nova (Halal Opt)", c:"Vaughan", k:"Italian", r:4.1, lat:43.830, lng:-79.520},
-
-        // --- MEXICAN (Halal) ---
-        {n:"Habaneros", c:"Vaughan", k:"Mexican", r:4.2, lat:43.830, lng:-79.550},
-        {n:"Burrito Boyz (Halal Opt)", c:"Mississauga", k:"Mexican", r:4.4, lat:43.580, lng:-79.620},
-        {n:"Chipotle (Halal Ckn)", c:"Toronto", k:"Mexican", r:4.1, lat:43.650, lng:-79.380},
-        {n:"Bar Burrito", c:"Richmond Hill", k:"Mexican", r:4.0, lat:43.870, lng:-79.430},
-
-        // --- CARIBBEAN ---
-        {n:"Wanda's Caribbean", c:"Mississauga", k:"Caribbean", r:4.5, lat:43.585, lng:-79.610},
-        {n:"Mona's Roti", c:"Scarborough", k:"Caribbean", r:4.6, lat:43.790, lng:-79.250},
-        {n:"Chris Jerk", c:"Scarborough", k:"Caribbean", r:4.7, lat:43.790, lng:-79.280},
-        {n:"Rasta Pasta", c:"Toronto", k:"Caribbean", r:4.5, lat:43.650, lng:-79.400},
-
-        // --- DESSERT / BREAKFAST ---
-        {n:"Holy Shakes", c:"Vaughan", k:"Dessert", r:4.5, lat:43.790, lng:-79.540},
-        {n:"D Spot Dessert", c:"Markham", k:"Dessert", r:4.4, lat:43.850, lng:-79.330},
-        {n:"D Spot Dessert", c:"Scarborough", k:"Dessert", r:4.4, lat:43.750, lng:-79.280},
-        {n:"Kunafa's", c:"Scarborough", k:"Dessert", r:4.6, lat:43.730, lng:-79.290},
-        {n:"Kunafa's", c:"Mississauga", k:"Dessert", r:4.6, lat:43.580, lng:-79.620},
-        {n:"Evviva Breakfast", c:"Toronto", k:"Breakfast", r:4.4, lat:43.640, lng:-79.390},
-        {n:"Pur & Simple", c:"Mississauga", k:"Breakfast", r:4.3, lat:43.600, lng:-79.650},
-        {n:"Fuwa Fuwa", c:"Toronto", k:"Dessert", r:4.3, lat:43.660, lng:-79.380},
-        {n:"Krispy Kreme", c:"Mississauga", k:"Dessert", r:4.6, lat:43.600, lng:-79.680}
+        // SCARBOROUGH
+        {n:"Sumilicious", c:"Scarborough", k:"Burgers", lat:43.800, lng:-79.260},
+        {n:"Northern Smokes", c:"Scarborough", k:"Burgers", lat:43.780, lng:-79.250},
+        {n:"Ghadir Meat", c:"Scarborough", k:"Middle Eastern", lat:43.750, lng:-79.290},
+        {n:"Nasib's", c:"Scarborough", k:"Middle Eastern", lat:43.730, lng:-79.280},
+        {n:"Shawarma Empire", c:"Scarborough", k:"Middle Eastern", lat:43.730, lng:-79.280},
+        {n:"Frederick", c:"Scarborough", k:"Asian", lat:43.760, lng:-79.270},
+        {n:"Charcoal Kebab House", c:"Scarborough", k:"Asian", lat:43.740, lng:-79.250},
+        {n:"Fishman Lobster Clubhouse", c:"Scarborough", k:"Sushi", lat:43.800, lng:-79.290},
+        {n:"Diana's Seafood", c:"Scarborough", k:"Sushi", lat:43.740, lng:-79.280},
+        {n:"Mona's Roti", c:"Scarborough", k:"Caribbean", lat:43.790, lng:-79.250},
+        {n:"Chris Jerk", c:"Scarborough", k:"Caribbean", lat:43.790, lng:-79.280}
     ];
 
-    // --- STATE & UTILS ---
+    // --- LOGIC ---
+    let viewMode = 'spin';
     let useGPS = false;
     let userLat = null, userLng = null;
-    let viewMode = 'spin'; 
+
+    function setMode(mode) {
+        viewMode = mode;
+        document.getElementById('btnModeSpin').classList.toggle('active', mode === 'spin');
+        document.getElementById('btnModeList').classList.toggle('active', mode === 'list');
+        document.getElementById('spinView').classList.toggle('hidden', mode !== 'spin');
+        document.getElementById('listView').style.display = (mode === 'list') ? 'block' : 'none';
+        if(mode === 'list') updateView();
+    }
 
     function getDistance(lat1, lon1, lat2, lon2) {
         const R = 6371; 
-        const dLat = (lat2-lat1) * (Math.PI/180);  
+        const dLat = (lat2-lat1) * (Math.PI/180);
         const dLon = (lon2-lon1) * (Math.PI/180); 
         const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
                   Math.cos(lat1 * (Math.PI/180)) * Math.cos(lat2 * (Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2); 
@@ -364,144 +266,105 @@
                         userLng = pos.coords.longitude;
                         useGPS = true;
                         btn.classList.add('active');
-                        btn.textContent = "📍 GPS Active";
+                        btn.textContent = "📍 Active";
                         document.getElementById('areaFilter').disabled = true;
                         document.getElementById('areaFilter').value = 'all';
                         if(viewMode === 'list') updateView();
                     },
-                    (err) => { alert("GPS Error: " + err.message); btn.textContent = "📍 Near Me (15km)"; }
+                    () => { alert("GPS Access Denied"); btn.textContent = "📍 Near Me"; }
                 );
-            } else { alert("GPS not supported."); }
+            } else { alert("GPS not supported"); }
         } else {
             useGPS = false;
             btn.classList.remove('active');
-            btn.textContent = "📍 Near Me (15km)";
+            btn.textContent = "📍 Near Me";
             document.getElementById('areaFilter').disabled = false;
             if(viewMode === 'list') updateView();
         }
     }
 
-    function getFilteredData() {
-        const cuisine = document.getElementById('cuisineFilter').value;
-        const area = document.getElementById('areaFilter').value;
-        const minRating = parseFloat(document.getElementById('ratingFilter').value);
-        const search = document.getElementById('searchInput').value.toLowerCase();
+    function getData() {
+        const c = document.getElementById('cuisineFilter').value;
+        const a = document.getElementById('areaFilter').value;
+        const s = document.getElementById('searchInput').value.toLowerCase();
 
         return DATABASE.filter(r => {
-            if (search && !r.n.toLowerCase().includes(search)) return false;
-            if (cuisine !== 'all' && r.k !== cuisine) return false;
-            if (r.r < minRating) return false;
-            if (useGPS && userLat) return getDistance(userLat, userLng, r.lat, r.lng) <= 15;
-            if (!useGPS && area !== 'all' && r.c !== area) return false;
+            if (s && !r.n.toLowerCase().includes(s)) return false;
+            if (c !== 'all' && r.k !== c) return false;
+            if (useGPS && userLat) return getDistance(userLat, userLng, r.lat, r.lng) <= 15; 
+            if (!useGPS && a !== 'all' && r.c !== a) return false;
             return true;
         });
     }
 
-    // --- MAIN ACTIONS ---
-    function setMode(mode) {
-        viewMode = mode;
-        document.getElementById('btnModeSpin').classList.toggle('active', mode === 'spin');
-        document.getElementById('btnModeList').classList.toggle('active', mode === 'list');
-        document.getElementById('spinView').classList.toggle('hidden', mode !== 'spin');
-        document.getElementById('listView').style.display = (mode === 'list') ? 'block' : 'none';
-        if (mode === 'list') updateView();
-    }
-
     function spinWheel() {
-        const candidates = getFilteredData();
-        if (candidates.length === 0) { alert("No spots found for these filters."); return; }
-        
+        const candidates = getData();
+        if(candidates.length === 0) { alert("No spots found. Change filters!"); return; }
+
         // Reset UI
         document.getElementById('tagsContainer').classList.add('hidden');
-        document.getElementById('directionsBtn').classList.add('hidden');
-        document.getElementById('maslahaTag').style.display = 'none';
+        document.getElementById('directionsBtn').style.display = 'none';
         
-        const textEl = document.getElementById('resultText');
-        let count = 0;
-        const maxSpins = 12; 
-        const speed = 40; 
-
+        const text = document.getElementById('resultText');
+        const sub = document.getElementById('resultSub');
+        
+        let i = 0;
+        // Fast animation
         const interval = setInterval(() => {
-            const randomTemp = candidates[Math.floor(Math.random() * candidates.length)];
-            textEl.innerText = randomTemp.n;
-            textEl.classList.add('animate-flicker');
-            if (++count >= maxSpins) {
+            const rand = candidates[Math.floor(Math.random() * candidates.length)];
+            text.innerText = rand.n;
+            sub.innerText = "🎲 Rolling...";
+            text.classList.add('animate-flicker');
+            
+            i++;
+            if(i > 15) {
                 clearInterval(interval);
-                finalizeSpin(candidates);
+                finalize(rand);
             }
-        }, speed);
+        }, 50);
     }
 
-    function finalizeSpin(candidates) {
-        const winner = candidates[Math.floor(Math.random() * candidates.length)];
-        const textEl = document.getElementById('resultText');
+    function finalize(winner) {
+        const text = document.getElementById('resultText');
+        text.classList.remove('animate-flicker');
+        text.style.color = "var(--primary)";
+        document.getElementById('resultSub').innerText = "Winner:";
         
-        document.getElementById('ratingTag').innerText = `⭐ ${winner.r}`;
+        // Tags
+        document.getElementById('tagsContainer').classList.remove('hidden');
         document.getElementById('cuisineTag').innerText = winner.k;
         document.getElementById('cityTag').innerText = winner.c;
         
-        if (winner.k === 'Masla7a') {
-            document.getElementById('maslahaTag').style.display = 'inline-block';
-            document.getElementById('cuisineTag').style.display = 'none';
-        } else {
-            document.getElementById('cuisineTag').style.display = 'inline-block';
-        }
-
-        document.getElementById('tagsContainer').classList.remove('hidden');
-        textEl.classList.remove('animate-flicker');
-        textEl.innerText = winner.n;
-        textEl.style.color = "var(--primary)";
-        
-        const dirBtn = document.getElementById('directionsBtn');
-        const query = encodeURIComponent(winner.n + ' ' + winner.c + ' Restaurant');
-        dirBtn.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
-        dirBtn.classList.remove('hidden');
+        // Button
+        const btn = document.getElementById('directionsBtn');
+        btn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(winner.n + " " + winner.c)}`;
+        btn.style.display = 'inline-block';
     }
 
     function updateView() {
-        if (viewMode !== 'list') return;
-        const listGrid = document.getElementById('listGrid');
-        const candidates = getFilteredData();
-        document.getElementById('listCount').innerText = `${candidates.length} spots found`;
-        listGrid.innerHTML = '';
+        if(viewMode !== 'list') return;
+        const list = document.getElementById('listGrid');
+        const data = getData();
+        document.getElementById('listCount').innerText = `${data.length} found`;
+        list.innerHTML = '';
+        
+        if(data.length === 0) { list.innerHTML = '<div style="padding:20px; color:#888;">No results</div>'; return; }
 
-        if (candidates.length === 0) {
-            listGrid.innerHTML = '<div class="empty-state">No spots match your filters.</div>';
-            return;
-        }
-
-        candidates.forEach(r => {
+        data.forEach(r => {
             const card = document.createElement('div');
             card.className = 'list-card';
-            const isShisha = r.k === 'Masla7a';
-            const badge = isShisha 
-                ? `<span style="background:var(--shisha); color:white; padding:2px 6px; border-radius:4px; font-size:0.75rem;">Masla7a</span>` 
-                : `<span style="background:#eee; color:#444; padding:2px 6px; border-radius:4px; font-size:0.75rem;">${r.k}</span>`;
-
-            // Fix safe link generation
-            const query = encodeURIComponent(r.n + ' ' + r.c + ' Restaurant');
-            const mapLink = `https://www.google.com/maps/search/?api=1&query=${query}`;
-
             card.innerHTML = `
-                <div>
-                    <h3>${r.n}</h3>
-                    <div style="font-size:0.85rem; color:#666; margin-bottom:6px;">
-                        <span style="color:var(--gold);">★${r.r}</span> • ${r.c}
-                    </div>
-                    <div>${badge}</div>
-                </div>
-                <a href="${mapLink}" target="_blank" class="list-action">Go ➜</a>
+                <div style="font-weight:bold; font-size:1.1rem; margin-bottom:5px;">${r.n}</div>
+                <div style="color:#666; font-size:0.9rem;">${r.k} • ${r.c}</div>
+                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.n + " " + r.c)}" 
+                   target="_blank" class="list-action">View on Map</a>
             `;
-            listGrid.appendChild(card);
+            list.appendChild(card);
         });
     }
 
-    // Safety Check: Verify DB Loaded
-    if(typeof DATABASE === 'undefined' || !DATABASE.length) {
-        alert("Error: Database failed to load. Please check file integrity.");
-    } else {
-        setMode('spin');
-    }
+    // Init
+    console.log("App Loaded. Database size:", DATABASE.length);
 </script>
 
 </body>
