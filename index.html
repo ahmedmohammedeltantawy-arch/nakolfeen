@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanakol Fin? (Fixed Edition) 🇪🇬</title>
+    <title>Hanakol Fin? (Fixed) 🇪🇬</title>
     
     <meta property="og:title" content="Hanakol Fin? 🌍">
     <meta property="og:description" content="The GTA Halal Atlas.">
@@ -15,7 +15,6 @@
         h1 { color: var(--primary); font-size: 2rem; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: -1px; }
         .subtitle { color: #666; font-size: 0.95rem; margin-bottom: 20px; }
         
-        /* Controls */
         .controls { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #ddd; max-width: 700px; margin: 0 auto 20px auto; }
         .filter-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
         
@@ -147,7 +146,6 @@
 
 <script>
     // --- DATABASE ---
-    // Keys: n=name, c=city, k=kind (cuisine), r=rating
     const DATABASE = [
         // --- AURORA ---
         {n:"Pita Golden Pocket", c:"Aurora", k:"Middle Eastern", r:4.8, lat:44.000, lng:-79.450},
@@ -341,22 +339,11 @@
         {n:"Krispy Kreme", c:"Mississauga", k:"Dessert", r:4.6, lat:43.600, lng:-79.680}
     ];
 
-    // --- STATE ---
+    // --- STATE & UTILS ---
     let useGPS = false;
     let userLat = null, userLng = null;
-    let viewMode = 'spin'; // 'spin' or 'list'
+    let viewMode = 'spin'; 
 
-    // --- MODES ---
-    function setMode(mode) {
-        viewMode = mode;
-        document.getElementById('btnModeSpin').classList.toggle('active', mode === 'spin');
-        document.getElementById('btnModeList').classList.toggle('active', mode === 'list');
-        document.getElementById('spinView').classList.toggle('hidden', mode !== 'spin');
-        document.getElementById('listView').style.display = (mode === 'list') ? 'block' : 'none';
-        if (mode === 'list') updateView();
-    }
-
-    // --- CORE ---
     function getDistance(lat1, lon1, lat2, lon2) {
         const R = 6371; 
         const dLat = (lat2-lat1) * (Math.PI/180);  
@@ -410,10 +397,19 @@
         });
     }
 
-    // --- SPIN ---
+    // --- MAIN ACTIONS ---
+    function setMode(mode) {
+        viewMode = mode;
+        document.getElementById('btnModeSpin').classList.toggle('active', mode === 'spin');
+        document.getElementById('btnModeList').classList.toggle('active', mode === 'list');
+        document.getElementById('spinView').classList.toggle('hidden', mode !== 'spin');
+        document.getElementById('listView').style.display = (mode === 'list') ? 'block' : 'none';
+        if (mode === 'list') updateView();
+    }
+
     function spinWheel() {
         const candidates = getFilteredData();
-        if (candidates.length === 0) { alert("No spots found."); return; }
+        if (candidates.length === 0) { alert("No spots found for these filters."); return; }
         
         // Reset UI
         document.getElementById('tagsContainer').classList.add('hidden');
@@ -422,8 +418,8 @@
         
         const textEl = document.getElementById('resultText');
         let count = 0;
-        const maxSpins = 12; // Fast
-        const speed = 40;    // Fast
+        const maxSpins = 12; 
+        const speed = 40; 
 
         const interval = setInterval(() => {
             const randomTemp = candidates[Math.floor(Math.random() * candidates.length)];
@@ -457,12 +453,11 @@
         textEl.style.color = "var(--primary)";
         
         const dirBtn = document.getElementById('directionsBtn');
-        // FIXED URL GENERATION
-        dirBtn.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(winner.n + ' ' + winner.c + ' Restaurant');
+        const query = encodeURIComponent(winner.n + ' ' + winner.c + ' Restaurant');
+        dirBtn.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
         dirBtn.classList.remove('hidden');
     }
 
-    // --- LIST ---
     function updateView() {
         if (viewMode !== 'list') return;
         const listGrid = document.getElementById('listGrid');
@@ -483,6 +478,10 @@
                 ? `<span style="background:var(--shisha); color:white; padding:2px 6px; border-radius:4px; font-size:0.75rem;">Masla7a</span>` 
                 : `<span style="background:#eee; color:#444; padding:2px 6px; border-radius:4px; font-size:0.75rem;">${r.k}</span>`;
 
+            // Fix safe link generation
+            const query = encodeURIComponent(r.n + ' ' + r.c + ' Restaurant');
+            const mapLink = `https://www.google.com/maps/search/?api=1&query=${query}`;
+
             card.innerHTML = `
                 <div>
                     <h3>${r.n}</h3>
@@ -491,14 +490,18 @@
                     </div>
                     <div>${badge}</div>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.n + ' ' + r.c)}" 
-                   target="_blank" class="list-action">Go ➜</a>
+                <a href="${mapLink}" target="_blank" class="list-action">Go ➜</a>
             `;
             listGrid.appendChild(card);
         });
     }
 
-    setMode('spin');
+    // Safety Check: Verify DB Loaded
+    if(typeof DATABASE === 'undefined' || !DATABASE.length) {
+        alert("Error: Database failed to load. Please check file integrity.");
+    } else {
+        setMode('spin');
+    }
 </script>
 
 </body>
