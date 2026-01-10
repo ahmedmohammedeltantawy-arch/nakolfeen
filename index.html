@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanakol Fin? (Aurora Edition) 🇪🇬</title>
+    <title>Hanakol Fin? (Fixed Edition) 🇪🇬</title>
     
     <meta property="og:title" content="Hanakol Fin? 🌍">
-    <meta property="og:description" content="The GTA Halal Atlas. Now with Aurora.">
+    <meta property="og:description" content="The GTA Halal Atlas.">
     
     <style>
         :root { --primary: #CE1126; --dark: #1a1a1a; --gold: #f1c40f; --bg: #f4f7f6; --success: #27ae60; --blue: #2980b9; --shisha: #8e44ad; }
@@ -68,7 +68,7 @@
 <body>
 
 <div class="header">
-    <h1>Hanakol Fin? <span style="font-size:1rem; vertical-align:middle; background:#333; color:white; padding:2px 8px; border-radius:10px;">Atlas</span></h1>
+    <h1>Hanakol Fin? <span style="font-size:1rem; vertical-align:middle; background:#333; color:white; padding:2px 8px; border-radius:10px;">Fixed</span></h1>
     <div class="subtitle">GTA Halal Spots. Instant Results.</div>
 </div>
 
@@ -101,7 +101,8 @@
         <select id="areaFilter" onchange="updateView()">
             <option value="all">El Mante2a? (Any)</option>
             <option value="Vaughan">Vaughan</option>
-            <option value="Aurora">Aurora</option> <option value="Richmond Hill">Richmond Hill</option>
+            <option value="Aurora">Aurora</option>
+            <option value="Richmond Hill">Richmond Hill</option>
             <option value="Toronto">Toronto / Core</option>
             <option value="Mississauga">Mississauga</option>
             <option value="Scarborough">Scarborough</option>
@@ -145,9 +146,10 @@
 
 <script>
     // --- DATABASE ---
+    // Keys: n=name, c=city, k=kind (cuisine), r=rating
     const DATABASE = [
-        // --- AURORA (NEW ADDITIONS) ---
-        {n:"Pita Golden Pocket", c:"Aurora", k:"Middle Eastern", r:4.8, lat:44.000, lng:-79.450}, // Iconic
+        // --- AURORA ---
+        {n:"Pita Golden Pocket", c:"Aurora", k:"Middle Eastern", r:4.8, lat:44.000, lng:-79.450},
         {n:"Gladiator Burger", c:"Aurora", k:"Burgers", r:4.5, lat:44.006, lng:-79.460},
         {n:"Bamiyan Kabob", c:"Aurora", k:"Middle Eastern", r:4.3, lat:44.002, lng:-79.455},
         {n:"Mary Brown's", c:"Aurora", k:"Burgers", r:4.4, lat:43.990, lng:-79.460},
