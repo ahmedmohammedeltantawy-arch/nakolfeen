@@ -15,6 +15,7 @@
         h1 { color: var(--primary); font-size: 2rem; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: -1px; }
         .subtitle { color: #666; font-size: 0.95rem; margin-bottom: 20px; }
         
+        /* Controls */
         .controls { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #ddd; max-width: 700px; margin: 0 auto 20px auto; }
         .filter-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
         
@@ -456,7 +457,8 @@
         textEl.style.color = "var(--primary)";
         
         const dirBtn = document.getElementById('directionsBtn');
-        dirBtn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(winner.n + ' ' + winner.c)}`;
+        // FIXED URL GENERATION
+        dirBtn.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(winner.n + ' ' + winner.c + ' Restaurant');
         dirBtn.classList.remove('hidden');
     }
 
