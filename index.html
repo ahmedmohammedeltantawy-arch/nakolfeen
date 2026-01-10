@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanakol Fin? (All-Access) 🇪🇬</title>
+    <title>Hanakol Fin? (Aurora Edition) 🇪🇬</title>
     
     <meta property="og:title" content="Hanakol Fin? 🌍">
-    <meta property="og:description" content="The GTA Halal Atlas. Spin or Browse.">
+    <meta property="og:description" content="The GTA Halal Atlas. Now with Aurora.">
     
     <style>
         :root { --primary: #CE1126; --dark: #1a1a1a; --gold: #f1c40f; --bg: #f4f7f6; --success: #27ae60; --blue: #2980b9; --shisha: #8e44ad; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; text-align: center; }
         
-        /* Header */
         h1 { color: var(--primary); font-size: 2rem; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: -1px; }
         .subtitle { color: #666; font-size: 0.95rem; margin-bottom: 20px; }
         
-        /* Controls Container */
         .controls { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #ddd; max-width: 700px; margin: 0 auto 20px auto; }
         .filter-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
         
@@ -27,12 +25,11 @@
         .btn-loc { background: #eee; color: #333; border: none; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;}
         .btn-loc.active { background: var(--blue); color: white; }
 
-        /* Mode Toggle */
-        .mode-toggle { display: flex; background: #e0e0e0; border-radius: 50px; p-1; width: fit-content; margin: 0 auto 20px auto; overflow: hidden; }
-        .mode-btn { padding: 10px 25px; border: none; background: transparent; cursor: pointer; font-weight: bold; font-size: 1rem; color: #555; transition: 0.2s; border-radius: 50px; }
-        .mode-btn.active { background: var(--dark); color: white; shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .mode-toggle { display: flex; background: #e0e0e0; border-radius: 50px; padding: 4px; width: fit-content; margin: 0 auto 20px auto; }
+        .mode-btn { padding: 8px 25px; border: none; background: transparent; cursor: pointer; font-weight: bold; font-size: 1rem; color: #555; border-radius: 50px; transition: 0.2s; }
+        .mode-btn.active { background: var(--dark); color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
-        /* VIEW: SPIN (Roulette) */
+        /* VIEW: SPIN */
         .roulette-container {
             background: white; border: 3px solid var(--dark); border-radius: 20px;
             padding: 40px 20px; margin: 0 auto 20px auto; max-width: 600px;
@@ -50,26 +47,21 @@
             box-shadow: 0 4px 10px rgba(206, 17, 38, 0.3); text-transform: uppercase;
         }
 
-        /* VIEW: LIST (Grid) */
+        /* VIEW: LIST */
         #listView { display: none; max-width: 1000px; margin: 0 auto; }
         .list-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
         .list-card { 
             background: white; padding: 15px; border-radius: 12px; border: 1px solid #eee; text-align: left; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;
         }
-        .list-card h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: var(--dark); }
-        .list-meta { font-size: 0.85rem; color: #666; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
         .list-action { 
             background: var(--success); color: white; text-decoration: none; text-align: center;
             padding: 8px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; display: block; margin-top: auto;
         }
-        .list-action:hover { opacity: 0.9; }
 
-        /* Utility */
         .hidden { display: none !important; }
-        .animate-flicker { animation: flicker 0.08s infinite; }
+        .animate-flicker { animation: flicker 0.05s infinite; }
         @keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
-        
         .empty-state { padding: 40px; color: #777; font-style: italic; }
     </style>
 </head>
@@ -77,17 +69,17 @@
 
 <div class="header">
     <h1>Hanakol Fin? <span style="font-size:1rem; vertical-align:middle; background:#333; color:white; padding:2px 8px; border-radius:10px;">Atlas</span></h1>
-    <div class="subtitle">400+ Verified Spots. Spin or Browse.</div>
+    <div class="subtitle">GTA Halal Spots. Instant Results.</div>
 </div>
 
 <div class="mode-toggle">
     <button class="mode-btn active" onclick="setMode('spin')" id="btnModeSpin">🎲 Spin</button>
-    <button class="mode-btn" onclick="setMode('list')" id="btnModeList">📋 List View</button>
+    <button class="mode-btn" onclick="setMode('list')" id="btnModeList">📋 List</button>
 </div>
 
 <div class="controls">
     <div class="filter-row">
-        <input type="text" id="searchInput" placeholder="🔍 Search (e.g. Karahi, Burger)..." onkeyup="updateView()">
+        <input type="text" id="searchInput" placeholder="🔍 Search..." onkeyup="updateView()">
     </div>
     <div class="filter-row">
         <select id="cuisineFilter" onchange="updateView()">
@@ -109,7 +101,7 @@
         <select id="areaFilter" onchange="updateView()">
             <option value="all">El Mante2a? (Any)</option>
             <option value="Vaughan">Vaughan</option>
-            <option value="Richmond Hill">Richmond Hill</option>
+            <option value="Aurora">Aurora</option> <option value="Richmond Hill">Richmond Hill</option>
             <option value="Toronto">Toronto / Core</option>
             <option value="Mississauga">Mississauga</option>
             <option value="Scarborough">Scarborough</option>
@@ -148,14 +140,25 @@
 
 <div id="listView">
     <div id="listCount" style="margin-bottom:15px; color:#666; font-size:0.9rem;"></div>
-    <div class="list-grid" id="listGrid">
-        </div>
+    <div class="list-grid" id="listGrid"></div>
 </div>
 
 <script>
-    // --- DATABASE (Shortened keys: n=name, c=city, k=kind, r=rating) ---
+    // --- DATABASE ---
     const DATABASE = [
-         // --- EGYPTIAN ---
+        // --- AURORA (NEW ADDITIONS) ---
+        {n:"Pita Golden Pocket", c:"Aurora", k:"Middle Eastern", r:4.8, lat:44.000, lng:-79.450}, // Iconic
+        {n:"Gladiator Burger", c:"Aurora", k:"Burgers", r:4.5, lat:44.006, lng:-79.460},
+        {n:"Bamiyan Kabob", c:"Aurora", k:"Middle Eastern", r:4.3, lat:44.002, lng:-79.455},
+        {n:"Mary Brown's", c:"Aurora", k:"Burgers", r:4.4, lat:43.990, lng:-79.460},
+        {n:"Minami Sushi", c:"Aurora", k:"Sushi", r:4.4, lat:44.000, lng:-79.465},
+        {n:"Fishbone Kitchen", c:"Aurora", k:"Sushi", r:4.5, lat:44.000, lng:-79.465},
+        {n:"Shawarma Land", c:"Aurora", k:"Middle Eastern", r:4.2, lat:43.995, lng:-79.470},
+        {n:"Bombay's Chutney", c:"Aurora", k:"Pakistani", r:4.1, lat:44.010, lng:-79.450},
+        {n:"Hero Certified Burgers", c:"Aurora", k:"Burgers", r:4.1, lat:44.005, lng:-79.460},
+        {n:"Kibo Sushi", c:"Aurora", k:"Sushi", r:4.3, lat:44.000, lng:-79.450},
+
+        // --- EGYPTIAN ---
         {n:"Masrawy Egyptian Kitchen", c:"Mississauga", k:"Egyptian", r:4.6, lat:43.605, lng:-79.685},
         {n:"Tut's Egyptian Street Food", c:"Toronto", k:"Egyptian", r:4.5, lat:43.645, lng:-79.395},
         {n:"Maha's Brunch", c:"Toronto", k:"Egyptian", r:4.7, lat:43.670, lng:-79.340},
@@ -335,23 +338,22 @@
         {n:"Krispy Kreme", c:"Mississauga", k:"Dessert", r:4.6, lat:43.600, lng:-79.680}
     ];
 
-    // --- APP STATE ---
+    // --- STATE ---
     let useGPS = false;
     let userLat = null, userLng = null;
     let viewMode = 'spin'; // 'spin' or 'list'
 
-    // --- CORE LOGIC ---
+    // --- MODES ---
     function setMode(mode) {
         viewMode = mode;
         document.getElementById('btnModeSpin').classList.toggle('active', mode === 'spin');
         document.getElementById('btnModeList').classList.toggle('active', mode === 'list');
-        
         document.getElementById('spinView').classList.toggle('hidden', mode !== 'spin');
         document.getElementById('listView').style.display = (mode === 'list') ? 'block' : 'none';
-        
         if (mode === 'list') updateView();
     }
 
+    // --- CORE ---
     function getDistance(lat1, lon1, lat2, lon2) {
         const R = 6371; 
         const dLat = (lat2-lat1) * (Math.PI/180);  
@@ -372,7 +374,7 @@
                         userLng = pos.coords.longitude;
                         useGPS = true;
                         btn.classList.add('active');
-                        btn.textContent = "📍 Near Me (15km)";
+                        btn.textContent = "📍 GPS Active";
                         document.getElementById('areaFilter').disabled = true;
                         document.getElementById('areaFilter').value = 'all';
                         if(viewMode === 'list') updateView();
@@ -399,38 +401,31 @@
             if (search && !r.n.toLowerCase().includes(search)) return false;
             if (cuisine !== 'all' && r.k !== cuisine) return false;
             if (r.r < minRating) return false;
-            
-            if (useGPS && userLat) {
-                return getDistance(userLat, userLng, r.lat, r.lng) <= 15;
-            } else {
-                if (area !== 'all' && r.c !== area) return false;
-            }
+            if (useGPS && userLat) return getDistance(userLat, userLng, r.lat, r.lng) <= 15;
+            if (!useGPS && area !== 'all' && r.c !== area) return false;
             return true;
         });
     }
 
-    // --- SPIN LOGIC ---
+    // --- SPIN ---
     function spinWheel() {
         const candidates = getFilteredData();
-        if (candidates.length === 0) { alert("No spots found. Try wider filters."); return; }
-
-        // UI Reset
+        if (candidates.length === 0) { alert("No spots found."); return; }
+        
+        // Reset UI
         document.getElementById('tagsContainer').classList.add('hidden');
         document.getElementById('directionsBtn').classList.add('hidden');
         document.getElementById('maslahaTag').style.display = 'none';
         
         const textEl = document.getElementById('resultText');
-        const subEl = document.getElementById('resultSub');
-
-        // Animation
         let count = 0;
-        const maxSpins = 20;
-        const speed = 60;
+        const maxSpins = 12; // Fast
+        const speed = 40;    // Fast
+
         const interval = setInterval(() => {
             const randomTemp = candidates[Math.floor(Math.random() * candidates.length)];
             textEl.innerText = randomTemp.n;
             textEl.classList.add('animate-flicker');
-            subEl.innerText = "🎲 Rolling...";
             if (++count >= maxSpins) {
                 clearInterval(interval);
                 finalizeSpin(candidates);
@@ -457,44 +452,40 @@
         textEl.classList.remove('animate-flicker');
         textEl.innerText = winner.n;
         textEl.style.color = "var(--primary)";
-        document.getElementById('resultSub').innerText = "Yalla, destination set:";
-
+        
         const dirBtn = document.getElementById('directionsBtn');
         dirBtn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(winner.n + ' ' + winner.c)}`;
         dirBtn.classList.remove('hidden');
     }
 
-    // --- LIST VIEW LOGIC ---
+    // --- LIST ---
     function updateView() {
         if (viewMode !== 'list') return;
-        
         const listGrid = document.getElementById('listGrid');
         const candidates = getFilteredData();
-        
         document.getElementById('listCount').innerText = `${candidates.length} spots found`;
         listGrid.innerHTML = '';
 
         if (candidates.length === 0) {
-            listGrid.innerHTML = '<div class="empty-state">No restaurants found. Try changing filters.</div>';
+            listGrid.innerHTML = '<div class="empty-state">No spots match your filters.</div>';
             return;
         }
 
         candidates.forEach(r => {
             const card = document.createElement('div');
             card.className = 'list-card';
-            
             const isShisha = r.k === 'Masla7a';
-            const cuisineBadge = isShisha 
+            const badge = isShisha 
                 ? `<span style="background:var(--shisha); color:white; padding:2px 6px; border-radius:4px; font-size:0.75rem;">Masla7a</span>` 
                 : `<span style="background:#eee; color:#444; padding:2px 6px; border-radius:4px; font-size:0.75rem;">${r.k}</span>`;
 
             card.innerHTML = `
                 <div>
                     <h3>${r.n}</h3>
-                    <div class="list-meta">
+                    <div style="font-size:0.85rem; color:#666; margin-bottom:6px;">
                         <span style="color:var(--gold);">★${r.r}</span> • ${r.c}
                     </div>
-                    <div style="margin-top:5px;">${cuisineBadge}</div>
+                    <div>${badge}</div>
                 </div>
                 <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.n + ' ' + r.c)}" 
                    target="_blank" class="list-action">Go ➜</a>
@@ -503,7 +494,6 @@
         });
     }
 
-    // Default init
     setMode('spin');
 </script>
 
