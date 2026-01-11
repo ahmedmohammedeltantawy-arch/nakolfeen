@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanakol Fin? (True Atlas) 🇪🇬</title>
-    
+    <title>Hanakol Fin? (Fixed List) 🇪🇬</title>
     <script src="database.js"></script>
-
     <style>
         :root { --primary: #CE1126; --dark: #1a1a1a; --gold: #f1c40f; --bg: #f4f7f6; --success: #27ae60; --blue: #2980b9; --shisha: #8e44ad; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; text-align: center; }
-        
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; text-align: center; }
         h1 { color: var(--primary); font-size: 1.8rem; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: -1px; }
         .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
         
+        /* Controls */
         .controls { background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ddd; max-width: 800px; margin: 0 auto; }
         .filter-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 10px; }
         select, input, button { padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 0.9rem; background: #fff; flex: 1; min-width: 120px; }
@@ -22,28 +20,32 @@
         .btn-spin { background: var(--primary); color: white; font-size: 1.2rem; font-weight: 800; width: 100%; max-width: 400px; padding: 12px; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(206,17,38,0.3); text-transform: uppercase; }
         .btn-add { background: var(--success); color: white; border: none; font-weight: bold; cursor: pointer; max-width: 100px; }
 
+        /* Toggle Buttons */
         .mode-toggle { display: flex; background: #e0e0e0; border-radius: 50px; padding: 4px; width: fit-content; margin: 0 auto 15px auto; }
         .mode-btn { padding: 8px 20px; border: none; background: transparent; cursor: pointer; font-weight: bold; color: #555; border-radius: 50px; }
         .mode-btn.active { background: var(--dark); color: white; }
 
-        /* VIEW: SPIN */
+        /* Spin View */
         .roulette-container { background: white; border: 3px solid var(--dark); border-radius: 20px; padding: 30px; margin: 0 auto 15px auto; max-width: 600px; min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .result-text { font-size: 2rem; font-weight: 800; color: var(--dark); line-height: 1.1; }
         .tags-container { margin-top: 10px; display: flex; gap: 5px; justify-content: center; }
         .tag { background: #eee; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; }
-        .hidden { display: none !important; }
         .animate-flicker { animation: flicker 0.05s infinite; }
         @keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
-        /* VIEW: LIST */
-        #listView { display: none; max-width: 1000px; margin: 0 auto; text-align: left; }
+        /* List View - Fixed Display Logic */
+        #listView { display: none; max-width: 1000px; margin: 0 auto; text-align: left; padding-bottom: 50px; }
         .list-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
-        .list-card { background: white; padding: 12px; border-radius: 8px; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: space-between; }
-        .list-link { display: block; background: var(--blue); color: white; text-align: center; padding: 6px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: bold; margin-top: 8px; }
+        .list-card { background: white; padding: 12px; border-radius: 8px; border: 1px solid #ddd; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .list-link { display: block; background: var(--blue); color: white; text-align: center; padding: 8px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: bold; margin-top: 8px; }
+        .rating-badge { color: #f39c12; font-weight: bold; }
 
+        /* Utility */
+        .hidden { display: none !important; }
+        
+        /* Modal */
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
         .modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; text-align: left; }
-        .modal-content input, .modal-content select { width: 100%; margin-bottom: 10px; box-sizing: border-box; }
         .close-btn { float: right; cursor: pointer; font-size: 1.2rem; }
     </style>
 </head>
@@ -51,7 +53,7 @@
 
 <div class="header">
     <h1>Hanakol Fin?</h1>
-    <div class="subtitle">GTA Halal Atlas • User Supported</div>
+    <div class="subtitle">GTA Halal Atlas</div>
 </div>
 
 <div class="mode-toggle">
@@ -66,33 +68,33 @@
     </div>
     <div class="filter-row">
         <select id="cuisineFilter" onchange="updateView()">
-            <option value="all">Mood Eih? (Any)</option>
+            <option value="all">Mood Eih? (All)</option>
             <option value="Masla7a">💨 Masla7a (Shisha)</option>
             <option value="Egyptian">🇪🇬 Egyptian</option>
             <option value="Turkish">🇹🇷 Turkish</option>
             <option value="Burgers">🍔 Burgers</option>
-            <option value="Middle Eastern">🥙 Arab / Shawarma</option>
+            <option value="Middle Eastern">🥙 Middle Eastern</option>
             <option value="Pakistani">🌶️ Pakistani / Desi</option>
             <option value="Asian">🍜 Asian / Hakka</option>
             <option value="Sushi">🍣 Sushi</option>
             <option value="Steakhouse">🥩 Steak / Grill</option>
-            <option value="Italian">🍝 Italian / Pizza</option>
+            <option value="Italian">🍝 Italian</option>
             <option value="Mexican">🌮 Mexican</option>
             <option value="Caribbean">🇯🇲 Caribbean</option>
-            <option value="African">🌍 African / Somali</option>
+            <option value="African">🌍 African</option>
             <option value="Dessert">🍩 Dessert</option>
         </select>
         <select id="areaFilter" onchange="updateView()">
-            <option value="all">Area (Any)</option>
-            <option value="Vaughan">Vaughan</option>
-            <option value="Aurora">Aurora</option>
-            <option value="Richmond Hill">Richmond Hill</option>
-            <option value="Toronto">Toronto</option>
+            <option value="all">Area (All)</option>
             <option value="Mississauga">Mississauga</option>
             <option value="Scarborough">Scarborough</option>
-            <option value="Markham">Markham</option>
+            <option value="Vaughan">Vaughan</option>
+            <option value="Toronto">Toronto</option>
+            <option value="Richmond Hill">Richmond Hill</option>
             <option value="North York">North York</option>
+            <option value="Markham">Markham</option>
             <option value="Etobicoke">Etobicoke</option>
+            <option value="Aurora">Aurora</option>
             <option value="Ajax">Ajax/Pickering</option>
             <option value="Milton">Milton/Oakville</option>
         </select>
@@ -127,58 +129,59 @@
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">×</span>
         <h3>Add New Spot</h3>
-        <input type="text" id="addName" placeholder="Restaurant Name">
-        <select id="addCity">
+        <input type="text" id="addName" placeholder="Restaurant Name" style="width:100%;margin-bottom:10px;">
+        <select id="addCity" style="width:100%;margin-bottom:10px;">
             <option value="Vaughan">Vaughan</option>
-            <option value="Aurora">Aurora</option>
-            <option value="Richmond Hill">Richmond Hill</option>
-            <option value="Toronto">Toronto</option>
             <option value="Mississauga">Mississauga</option>
             <option value="Scarborough">Scarborough</option>
-            <option value="Markham">Markham</option>
+            <option value="Toronto">Toronto</option>
             <option value="North York">North York</option>
+            <option value="Richmond Hill">Richmond Hill</option>
+            <option value="Etobicoke">Etobicoke</option>
             <option value="Ajax">Ajax</option>
         </select>
-        <select id="addCuisine">
+        <select id="addCuisine" style="width:100%;margin-bottom:10px;">
             <option value="Burgers">Burgers</option>
             <option value="Egyptian">Egyptian</option>
-            <option value="Masla7a">Masla7a (Shisha)</option>
+            <option value="Masla7a">Masla7a</option>
             <option value="Middle Eastern">Middle Eastern</option>
             <option value="Pakistani">Pakistani</option>
             <option value="Asian">Asian</option>
-            <option value="Sushi">Sushi</option>
-            <option value="Dessert">Dessert</option>
         </select>
-        <button class="btn-action" onclick="submitNewSpot()" style="width:100%">Save Spot</button>
+        <button class="btn-action" onclick="submitNewSpot()" style="width:100%">Save</button>
     </div>
 </div>
 
 <script>
-    // 1. SETUP STATE
+    // --- APP LOGIC ---
     let activeDB = [];
     let viewMode = 'spin';
 
-    // 2. INITIALIZE
     function init() {
-        // Load Static Database from database.js
         if (typeof RESTAURANT_DB !== 'undefined') {
             const userSpots = JSON.parse(localStorage.getItem('userHalalSpots')) || [];
             activeDB = RESTAURANT_DB.concat(userSpots);
             console.log(`Loaded ${activeDB.length} restaurants.`);
+            // Default to Spin mode, but ensure list is ready
             setMode('spin');
         } else {
-            alert("Error: database.js not found. Make sure both files are in the same folder.");
+            alert("Error: database.js not found!");
         }
     }
 
-    // 3. CORE LOGIC
     function setMode(mode) {
         viewMode = mode;
-        document.getElementById('btnModeSpin').classList.toggle('active', mode === 'spin');
-        document.getElementById('btnModeList').classList.toggle('active', mode === 'list');
-        document.getElementById('spinView').classList.toggle('hidden', mode !== 'spin');
-        document.getElementById('listView').style.display = (mode === 'list') ? 'block' : 'none';
-        if(mode === 'list') updateView();
+        // Button Styles
+        document.getElementById('btnModeSpin').className = mode === 'spin' ? 'mode-btn active' : 'mode-btn';
+        document.getElementById('btnModeList').className = mode === 'list' ? 'mode-btn active' : 'mode-btn';
+        
+        // Visibility Logic (FIXED)
+        document.getElementById('spinView').style.display = mode === 'spin' ? 'block' : 'none';
+        document.getElementById('listView').style.display = mode === 'list' ? 'block' : 'none';
+        
+        if(mode === 'list') {
+            updateView(); // Trigger render immediately when clicking tab
+        }
     }
 
     function getData() {
@@ -196,13 +199,12 @@
         });
     }
 
-    // 4. SPIN LOGIC
     function spinWheel() {
         const candidates = getData();
-        if(candidates.length === 0) { alert("No spots match your filters!"); return; }
+        if(candidates.length === 0) { alert("No spots found!"); return; }
 
-        document.getElementById('tagsContainer').classList.add('hidden');
-        document.getElementById('directionsBtn').classList.add('hidden');
+        document.getElementById('tagsContainer').className = "tags-container hidden";
+        document.getElementById('directionsBtn').className = "list-link hidden";
         const text = document.getElementById('resultText');
         const sub = document.getElementById('resultSub');
         
@@ -210,7 +212,7 @@
         const interval = setInterval(() => {
             const rand = candidates[Math.floor(Math.random() * candidates.length)];
             text.innerText = rand.n;
-            text.classList.add('animate-flicker');
+            text.className = "result-text animate-flicker";
             sub.innerText = "🎲 Rolling...";
             i++;
             if(i > 15) {
@@ -222,30 +224,35 @@
 
     function finalize(winner) {
         const text = document.getElementById('resultText');
-        text.classList.remove('animate-flicker');
+        text.className = "result-text";
         text.style.color = "var(--primary)";
         document.getElementById('resultSub').innerText = "Winner:";
         
         document.getElementById('resRating').innerText = `⭐ ${winner.r}`;
         document.getElementById('resCuisine').innerText = winner.k;
         document.getElementById('resCity').innerText = winner.c;
-        document.getElementById('tagsContainer').classList.remove('hidden');
+        document.getElementById('tagsContainer').className = "tags-container";
 
         const btn = document.getElementById('directionsBtn');
         const link = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(winner.n + " " + winner.c + " Restaurant")}`;
         btn.href = link;
-        btn.classList.remove('hidden');
+        btn.className = "list-link";
     }
 
-    // 5. LIST LOGIC
     function updateView() {
         if(viewMode !== 'list') return;
+        
         const list = document.getElementById('listGrid');
+        const count = document.getElementById('listCount');
         const data = getData();
-        document.getElementById('listCount').innerText = `${data.length} spots found`;
+        
+        count.innerText = `${data.length} spots found`;
         list.innerHTML = '';
         
-        if(data.length === 0) { list.innerHTML = '<div style="padding:20px; color:#888;">No results</div>'; return; }
+        if(data.length === 0) { 
+            list.innerHTML = '<div style="padding:20px; color:#888; grid-column:1/-1; text-align:center;">No results matching filters.</div>'; 
+            return; 
+        }
 
         data.forEach(item => {
             const link = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.n + " " + item.c + " Restaurant")}`;
@@ -254,7 +261,9 @@
             card.innerHTML = `
                 <div>
                     <strong>${item.n}</strong>
-                    <div style="font-size:0.85rem; color:#666;">${item.k} • ${item.c} • ⭐${item.r}</div>
+                    <div style="font-size:0.85rem; color:#666; margin-top:4px;">
+                        ${item.k} • ${item.c} • <span class="rating-badge">⭐${item.r}</span>
+                    </div>
                 </div>
                 <a href="${link}" target="_blank" class="list-link">View Map</a>
             `;
@@ -262,7 +271,6 @@
         });
     }
 
-    // 6. ADD FEATURE
     function openModal() { document.getElementById('addModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('addModal').style.display = 'none'; }
     
@@ -271,19 +279,17 @@
         const c = document.getElementById('addCity').value;
         const k = document.getElementById('addCuisine').value;
         if(!n) { alert("Enter a name!"); return; }
-        const newSpot = { n, c, k, r: 5.0 }; 
+        const newSpot = { n, c, k, r: 5.0 };
         const existing = JSON.parse(localStorage.getItem('userHalalSpots')) || [];
         existing.push(newSpot);
         localStorage.setItem('userHalalSpots', JSON.stringify(existing));
         init();
         closeModal();
         alert("Spot Added!");
-        document.getElementById('addName').value = "";
     }
 
-    // START
+    // Start App
     window.onload = init;
-
 </script>
 
 </body>
