@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanakol Fin? (Mega Edition) 🇪🇬</title>
+    <title>Hanakol Fin? (Colossal Edition) 🇪🇬</title>
+    <meta property="og:title" content="Hanakol Fin? 🌍">
     <style>
         :root { --primary: #CE1126; --dark: #1a1a1a; --gold: #f1c40f; --bg: #f4f7f6; --success: #27ae60; --blue: #2980b9; --shisha: #8e44ad; }
-        body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; text-align: center; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; text-align: center; }
+        
         h1 { color: var(--primary); font-size: 1.8rem; margin: 0; text-transform: uppercase; letter-spacing: -1px; }
         .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
         
@@ -15,7 +17,7 @@
         select, input, button { padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 0.9rem; background: #fff; flex: 1; min-width: 120px; }
         
         .btn-action { background: var(--dark); color: white; border: none; font-weight: bold; cursor: pointer; }
-        .btn-spin { background: var(--primary); color: white; font-size: 1.2rem; font-weight: 800; width: 100%; max-width: 400px; padding: 12px; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(206,17,38,0.3); }
+        .btn-spin { background: var(--primary); color: white; font-size: 1.2rem; font-weight: 800; width: 100%; max-width: 400px; padding: 12px; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(206,17,38,0.3); text-transform: uppercase; }
         .btn-add { background: var(--success); color: white; border: none; font-weight: bold; cursor: pointer; max-width: 100px; }
 
         .mode-toggle { display: flex; background: #e0e0e0; border-radius: 50px; padding: 4px; width: fit-content; margin: 0 auto 15px auto; }
@@ -31,7 +33,7 @@
         @keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
         #listView { display: none; max-width: 1000px; margin: 0 auto; text-align: left; }
-        .list-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+        .list-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
         .list-card { background: white; padding: 12px; border-radius: 8px; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: space-between; }
         .list-link { display: block; background: var(--blue); color: white; text-align: center; padding: 6px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: bold; margin-top: 8px; }
 
@@ -63,8 +65,9 @@
             <option value="all">Mood Eih? (Any)</option>
             <option value="Masla7a">💨 Masla7a (Shisha)</option>
             <option value="Egyptian">🇪🇬 Egyptian</option>
-            <option value="Burgers">🍔 Burgers</option>
-            <option value="Middle Eastern">🥙 Middle Eastern</option>
+            <option value="Turkish">🇹🇷 Turkish</option>
+            <option value="Middle Eastern">🥙 Arab / Shawarma</option>
+            <option value="Burgers">🍔 Burgers / Chicken</option>
             <option value="Pakistani">🌶️ Pakistani / Desi</option>
             <option value="Asian">🍜 Asian / Hakka</option>
             <option value="Sushi">🍣 Sushi</option>
@@ -128,19 +131,16 @@
             <option value="Toronto">Toronto</option>
             <option value="Mississauga">Mississauga</option>
             <option value="Scarborough">Scarborough</option>
-            <option value="Markham">Markham</option>
             <option value="North York">North York</option>
-            <option value="Ajax">Ajax</option>
         </select>
         <select id="addCuisine">
             <option value="Burgers">Burgers</option>
             <option value="Egyptian">Egyptian</option>
-            <option value="Masla7a">Masla7a (Shisha)</option>
+            <option value="Turkish">Turkish</option>
+            <option value="Masla7a">Masla7a</option>
             <option value="Middle Eastern">Middle Eastern</option>
             <option value="Pakistani">Pakistani</option>
             <option value="Asian">Asian</option>
-            <option value="Sushi">Sushi</option>
-            <option value="Dessert">Dessert</option>
         </select>
         <input type="text" id="addLink" placeholder="Google Maps Link (Optional)">
         <button class="btn-action" onclick="submitNewSpot()" style="width:100%">Save Spot</button>
@@ -148,7 +148,7 @@
 </div>
 
 <script>
-    // --- STATIC DATABASE (250+ Spots, Compressed) ---
+    // --- STATIC DATABASE (350+ Spots) ---
     const STATIC_DB = [
         // EGYPTIAN
         {n:"Masrawy Egyptian Kitchen",c:"Mississauga",k:"Egyptian",r:4.6},
@@ -162,6 +162,17 @@
         {n:"Simsim",c:"Mississauga",k:"Egyptian",r:4.1},
         {n:"Horus Cafe",c:"Mississauga",k:"Masla7a",r:4.2},
         {n:"Pharaohs",c:"Mississauga",k:"Egyptian",r:4.0},
+        
+        // TURKISH
+        {n:"Meat Point",c:"North York",k:"Turkish",r:4.5},
+        {n:"Mustafa",c:"North York",k:"Turkish",r:4.4},
+        {n:"Champion Doner",c:"Vaughan",k:"Turkish",r:4.5},
+        {n:"Mado",c:"Richmond Hill",k:"Turkish",r:4.2},
+        {n:"Mado",c:"Mississauga",k:"Turkish",r:4.2},
+        {n:"Istanbul Kebab",c:"Mississauga",k:"Turkish",r:4.6},
+        {n:"Barans",c:"Scarborough",k:"Turkish",r:4.3},
+        {n:"Pasha",c:"Toronto",k:"Turkish",r:4.2},
+        {n:"Sultan's",c:"Oakville",k:"Turkish",r:4.4},
         
         // MASLA7A (SHISHA)
         {n:"Al Omda Lounge",c:"Mississauga",k:"Masla7a",r:4.4},
@@ -198,7 +209,6 @@
         {n:"Top Gun Burgers",c:"Vaughan",k:"Burgers",r:4.4},
         {n:"Bergham",c:"Vaughan",k:"Burgers",r:4.1},
         {n:"Bamiyan Kabob",c:"Vaughan",k:"Middle Eastern",r:4.3},
-        {n:"Champion Doner",c:"Vaughan",k:"Middle Eastern",r:4.5},
         {n:"Karahi Boys",c:"Vaughan",k:"Pakistani",r:4.2},
         {n:"Memphis BBQ",c:"Vaughan",k:"Steakhouse",r:4.4},
         {n:"Scaddabush",c:"Vaughan",k:"Italian",r:4.3},
@@ -212,6 +222,8 @@
         {n:"Shinta Japanese BBQ",c:"Richmond Hill",k:"Asian",r:4.4},
         {n:"QJD Peking Duck",c:"Richmond Hill",k:"Asian",r:4.3},
         {n:"Chreston",c:"Richmond Hill",k:"Italian",r:4.2},
+        {n:"Ay Caramba, Eh",c:"Vaughan",k:"Mexican",r:4.7},
+        {n:"Zorro's",c:"Mississauga",k:"Steakhouse",r:4.3},
 
         // TORONTO
         {n:"Salad King",c:"Toronto",k:"Asian",r:4.4},
@@ -233,6 +245,11 @@
         {n:"Barberian's (Req)",c:"Toronto",k:"Steakhouse",r:4.6},
         {n:"Jacob's Steakhouse (Req)",c:"Toronto",k:"Steakhouse",r:4.6},
         {n:"Faryab Kabob",c:"Toronto",k:"Middle Eastern",r:4.6},
+        {n:"Plan B",c:"Etobicoke",k:"Burgers",r:4.4},
+        {n:"Momo's",c:"Etobicoke",k:"Asian",r:4.4},
+        {n:"Somali Restaurant",c:"Etobicoke",k:"African",r:4.1},
+        {n:"Mushkaki",c:"Etobicoke",k:"African",r:4.3},
+        {n:"Hamdi",c:"Etobicoke",k:"African",r:4.2},
         
         // MISSISSAUGA
         {n:"Burger Factory",c:"Mississauga",k:"Burgers",r:4.4},
@@ -250,6 +267,8 @@
         {n:"Nairn's Family Restaurant",c:"Mississauga",k:"Caribbean",r:4.3},
         {n:"Pita & Grill",c:"Mississauga",k:"Middle Eastern",r:4.2},
         {n:"Karahi Point",c:"Mississauga",k:"Pakistani",r:4.2},
+        {n:"Guru Lukshmi",c:"Mississauga",k:"Asian",r:4.7},
+        {n:"Las Esquinas",c:"Mississauga",k:"Mexican",r:4.3},
         
         // SCARBOROUGH / AJAX
         {n:"Sumilicious",c:"Scarborough",k:"Burgers",r:4.6},
@@ -264,10 +283,11 @@
         {n:"Mona's Roti",c:"Scarborough",k:"Caribbean",r:4.6},
         {n:"Chris Jerk",c:"Scarborough",k:"Caribbean",r:4.7},
         {n:"Sahan (Somali)",c:"Scarborough",k:"African",r:4.3},
-        {n:"Hamdi",c:"Etobicoke",k:"African",r:4.2},
+        {n:"Aleppo Kebab",c:"Scarborough",k:"Middle Eastern",r:4.6},
         {n:"D Spot Dessert",c:"Ajax",k:"Dessert",r:4.3},
         {n:"Karachi Xpress",c:"Ajax",k:"Pakistani",r:4.0},
         {n:"Affy's Premium Grill",c:"Pickering",k:"Steakhouse",r:4.2},
+        {n:"Sumaq",c:"Scarborough",k:"Middle Eastern",r:4.7},
         
         // MARKHAM / NORTH YORK
         {n:"D Spot Dessert",c:"Markham",k:"Dessert",r:4.4},
@@ -277,13 +297,13 @@
         {n:"Gyu-Kaku",c:"North York",k:"Asian",r:4.4},
         {n:"Omni Palace",c:"North York",k:"Asian",r:4.3},
         {n:"Magical Taste of China",c:"North York",k:"Asian",r:4.2},
-        {n:"Sumaq",c:"Scarborough",k:"Middle Eastern",r:4.7},
         
-        // ETOBICOKE / MILTON
+        // MILTON / OAKVILLE
         {n:"Malt N Salt",c:"Milton",k:"Burgers",r:4.6},
-        {n:"Plan B",c:"Etobicoke",k:"Burgers",r:4.4},
-        {n:"Somali Restaurant",c:"Etobicoke",k:"African",r:4.1},
-        {n:"Mushkaki",c:"Etobicoke",k:"African",r:4.3}
+        {n:"Marquee Steakhouse",c:"Milton",k:"Steakhouse",r:4.4},
+        {n:"Adonis",c:"Oakville",k:"Middle Eastern",r:4.3},
+        {n:"Chef's Door",c:"Oakville",k:"Middle Eastern",r:4.2},
+        {n:"Monaghan's",c:"Oakville",k:"Burgers",r:4.1}
     ];
 
     // --- 2. LOGIC ---
